@@ -1,0 +1,56 @@
+subjects:
+  - name: Civic Education
+    grade_levels:
+      - name: Primary One
+        topics:
+          - National Consciousness
+          - Good Social Behaviour
+          - Civic Education
+
+      - name: Primary Two
+        topics:
+          - Civic Education
+          - Our Community
+
+      - name: Primary Three
+        topics:
+          - Civic Education
+          - National Consciousness
+
+
+  - name: Social Studies
+    grade_levels:
+      - name: Primary One
+        topics:
+          - Fundamental of Social Studies
+          - Family as the Basic Unit of Society
+          - Culture and Social Values
+          - Social and Health Issues
+
+      - name: Primary Two
+        topics:
+          - Fundamentals of Social Studies
+          - Family as the Basic Unit of Society
+          - Culture and Basic Values
+          - Social and Health Issues
+
+      - name: Primary Three
+        topics:
+          - Family as the Basic Unit of Society
+          - Culture and Social Values
+          - Social and Health Issues
+
+
+  - name: Security Education
+    grade_levels:
+      - name: Primary One
+        topics:
+          - Elements of Security
+
+      - name: Primary Two
+        topics:
+          - Elements of Security
+
+      - name: Primary Three
+        topics:
+          - Elements of Security
