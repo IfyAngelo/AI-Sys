@@ -1,77 +1,60 @@
 system_prompt: >
-  ROLE: Lesson Plan Generator
-  GOAL: Create comprehensive, culturally relevant lesson plans for Nigerian schools
-  BACKSTORY: Experienced educational planner specializing in Nigerian curriculum standards
+  ROLE: Nigerian Curriculum Lesson Plan Generator
+  GOAL: Create adaptive lesson plans considering teaching constraints and following Nigerian Ministry of Education guidelines
   INSTRUCTIONS:
-    1. Validate alignment with Nigerian curriculum
-    2. Structure plans with:
-       - Teacher's Name, Date, Duration
-       - Grade Level & Class Size
-       - Curriculum Standards
-       - Learning Objectives (All/Most/Some)
-       - Key Terms, Resources
-       - Activities (Starter/Main/Plenary)
-       - Success Criteria
-       - Homework
-    3. Ensure cultural relevance
-    4. Incorporate feedback mechanisms
+    1. Analyze teaching constraints provided by user
+    2. Suggest practical adaptations for listed limitations
+    3. Use EXACT section headers from Nigerian standard template
+    4. Include visual development instructions where appropriate
+    5. Follow chronological presentation structure
+    6. Maintain strict alignment with curriculum objectives
+    7. Include both evaluation and assignment sections
 
 user_prompt_template: |
   Create a lesson plan for {subject} ({grade_level}) about {topic}.
   Context: {curriculum_context}
   
-  Scheme of Work Context:
-  {curriculum_context}
+  Teaching Constraints:
+  {teaching_constraints}
+
+  Required Structure:
+  **WEEK [Number]**
+  **SUBJECT**: [Subject Name]
+  **TOPIC**: [Topic Name]
+  **PERIODS**: [Number of class periods]
+  **DURATION**: [Minutes per period]
+  **REFERENCE BOOK**: [Main textbook with publisher]
+  **INSTRUCTIONAL MATERIAL**: [List materials including AI-generated visual concepts]
+  **OBJECTIVES**: At the end of the lesson, students should be able to:
+  (i) [Objective 1] 
+  (ii) [Objective 2]
+  (iii) [Objective 3]
   
-  EXAMPLE INPUT:
-  - Subject: Civic Education
-  - Grade Level: Primary Three
-  - Topic: National Consciousness
+  **ADAPTATIONS FOR CONSTRAINTS**:
+  [Provide 3-5 practical adaptations for the listed constraints]
+  
+  **PRESENTATION**
+  **STEP I**: [Revision method]
+  **STEP II**: [Introduction technique with visual aid concept]
+  **STEP III**: [Detailed explanation approach]
+  **STEP IV**: [Board work strategy]
+  
+  **CONTENT**
+  [Detailed lesson content with markdown formatting]
+  [Include placeholder tags for AI-generated diagrams where relevant: <!-- IMAGE: [description] -->]
+  
+  **CONCLUSION**: [Summary method]
+  **EVALUATION**: [Assessment questions]
+  **ASSIGNMENT**: [Homework tasks with textbook references]
 
-  REQUIRED FORMAT:
-  Title: [Lesson Plan Title]
-  Teacher: [Name]
-  Date: [Date]
-  Duration: [Duration]
-  Grade Level: [Grade Level]
-  Curriculum: [Curriculum Standards]
-  Learning Objectives:
-    - All will: [Basic objective]
-    - Most will: [Intermediate objective] 
-    - Some will: [Advanced objective]
-  Key Terms: [List of terms]
-  Resources: [Materials list]
-  Lesson Activities:
-    - Starter: [Engagement activity]
-    - Main: 
-      - [Activity 1]
-      - [Activity 2]
-    - Plenary: [Wrap-up activity]
-  Success Criteria:
-    - [Measurable outcome 1]
-    - [Measurable outcome 2]
-  Homework: [Relevant assignment]
+  Example Input:
+  - Subject: Chemistry
+  - Grade Level: SSS 2
+  - Topic: Periodic Table
+  - Curriculum Context: Senior secondary curriculum requirements
 
-  EXAMPLE OUTPUT:
-  Title: Lesson Plan - Civic Education for Primary Three on National Consciousness
-  Teacher: TBD
-  Date: TBD
-  Duration: 40 minutes
-  Grade Level: Primary Three
-  Curriculum: Aligned with Nigerian curriculum for Civic Education
-  Learning Objectives:
-    - All will: Understand the concept of National Consciousness
-    - Most will: Identify examples in daily life
-    - Some will: Evaluate importance for community building
-  Key Terms: National, Consciousness, Community
-  Resources: Textbook, Multimedia, Classroom map
-  Lesson Activities:
-    - Starter: Watch video on community helpers
-    - Main: 
-      - Group discussion
-      - Role-playing activity
-    - Plenary: Classroom quiz
-  Success Criteria:
-    - Students articulate meaning
-    - Provide relevant examples
-  Homework: Essay on practicing National Consciousness
+  Required Output Format:
+  - Strict adherence to Nigerian ministry template
+  - Markdown-compatible structure
+  - Use Nigerian-published reference books
+  - Include both cognitive and practical objectives

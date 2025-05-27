@@ -32,17 +32,24 @@ async def generate_scheme(payload: dict = Body(...)):
 @router.post("/lesson-plan")
 async def generate_lesson_plan(payload: dict = Body(...)):
     scheme_id = payload.get("scheme_of_work_id")
-
+    
     if not scheme_id or not session_mgr.get_scheme(scheme_id):
         raise HTTPException(400, detail="Invalid scheme ID")
     
     try:
-        scheme_data = session_mgr.get_scheme(scheme_id)["data"]
+        # Get scheme data from database
+        scheme_data = session_mgr.get_scheme(scheme_id)
+        if not scheme_data:
+            raise HTTPException(404, detail="Associated scheme not found")
+
+        # Generate lesson plan content with constraints
         lesson_content = generator.generate("lesson_plan", {
             **payload,
-            "scheme_context": scheme_data["content"]
+            "curriculum_context": scheme_data.get("content", ""),
+            "teaching_constraints": payload.get("limitations", "")
         })
         
+        # Store in database
         lesson_plan_id = session_mgr.create_lesson_plan(scheme_id, {
             "payload": payload,
             "content": lesson_content
@@ -60,52 +67,39 @@ async def generate_lesson_plan(payload: dict = Body(...)):
 
 @router.post("/lesson-notes")
 async def generate_notes(payload: dict = Body(...)):
-    # Validate required fields
-    required_fields = ["scheme_of_work_id", "lesson_plan_id", "subject", "grade_level", "topic"]
+    required_fields = ["scheme_of_work_id", "lesson_plan_id"]
     if any(field not in payload for field in required_fields):
         raise HTTPException(400, detail="Missing required fields in payload")
 
     scheme_id = payload["scheme_of_work_id"]
     lesson_plan_id = payload["lesson_plan_id"]
     
-    # Get associated data
-    scheme = session_mgr.get_scheme(scheme_id)
-    lesson_plan = session_mgr.get_lesson_plan(lesson_plan_id)
-    
-    # Detailed error reporting
-    errors = []
-    if not scheme:
-        errors.append("Invalid scheme ID")
-    if not lesson_plan:
-        errors.append("Invalid lesson plan ID")
-    if errors:
-        raise HTTPException(400, detail="; ".join(errors))
-    
-    # Verify lesson plan belongs to scheme
-    if lesson_plan["scheme_id"] != scheme_id:
-        raise HTTPException(400, detail="Lesson plan does not belong to specified scheme")
-    
-    # Validate subject consistency
-    if (scheme["data"]["payload"]["subject"] != payload["subject"] or
-        scheme["data"]["payload"]["grade_level"] != payload["grade_level"] or
-        scheme["data"]["payload"]["topic"] != payload["topic"]):
-        raise HTTPException(400, detail="Subject/grade/topic mismatch with original scheme")
-    
     try:
-        # Generate notes with combined context
+        # Get database records
+        scheme = session_mgr.get_scheme(scheme_id)
+        lesson_plan = session_mgr.get_lesson_plan(lesson_plan_id)
+        
+        if not scheme or not lesson_plan:
+            raise HTTPException(404, detail="Associated content not found")
+
+        # Generate notes
         notes_content = generator.generate("lesson_notes", {
-            "subject": payload["subject"],
-            "grade_level": payload["grade_level"],
-            "topic": payload["topic"],
-            "scheme_context": scheme["data"]["content"],
-            "lesson_plan_context": lesson_plan["data"]["content"]
+            "subject": payload.get("subject", scheme.get("payload", {}).get("subject", "")),
+            "grade_level": payload.get("grade_level", scheme.get("payload", {}).get("grade_level", "")),
+            "topic": payload.get("topic", scheme.get("payload", {}).get("topic", "")),
+            "scheme_context": scheme.get("content", ""),
+            "lesson_plan_context": lesson_plan.get("content", "")
         })
         
-        # Create and store notes
-        notes_id = session_mgr.create_lesson_notes(scheme_id, lesson_plan_id, {
-            "payload": payload,
-            "content": notes_content
-        })
+        # Store in database
+        notes_id = session_mgr.create_lesson_notes(
+            scheme_id,
+            lesson_plan_id,
+            {
+                "payload": payload,
+                "content": notes_content
+            }
+        )
         
         return {
             "scheme_of_work_id": scheme_id,

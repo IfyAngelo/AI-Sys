@@ -1,16 +1,11 @@
 # convert_logs_to_docx.py
-
 import os
 import json
+import tempfile
 from docx import Document
 from docx.shared import Pt
 from pathlib import Path
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-
-# BASE_DIR = Path("/Users/libertyelectronics/Desktop/curriculum_builder/CB_Agent")
-# LOGS_DIR = BASE_DIR / "logs"
-# OUTPUT_DIR = BASE_DIR / "genai_output"
-# OUTPUT_DIR.mkdir(exist_ok=True)
 
 def load_inputs():
     """Load the user inputs from JSON file."""
@@ -20,46 +15,91 @@ def load_inputs():
 
 def convert_md_to_docx(md_path: Path, output_path: Path):
     """Convert markdown content to DOCX with proper formatting"""
-
     doc = Document()
     
-    with open(md_path, "r", encoding="utf-8") as f:
-        content = f.read()
-    
-    # Add custom styling
+    # Add Nigerian-style document formatting
     style = doc.styles["Normal"]
     font = style.font
-    font.name = "Calibri"
-    font.size = Pt(11)
+    font.name = "Times New Roman"
+    font.size = Pt(12)
     
-    # Parse markdown content
+    # Set document margins
+    section = doc.sections[0]
+    section.top_margin = Pt(72)
+    section.bottom_margin = Pt(72)
+    section.left_margin = Pt(72)
+    section.right_margin = Pt(72)
+
+    with open(md_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    current_paragraph = None
+    
     for line in content.split("\n"):
         line = line.strip()
         
+        # Handle headers
         if line.startswith("# "):
-            heading = doc.add_heading(line[2:], level=1)
-            heading.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+            doc.add_heading(line[2:], level=1).alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         elif line.startswith("## "):
             doc.add_heading(line[3:], level=2)
         elif line.startswith("### "):
             doc.add_heading(line[4:], level=3)
-        elif line.startswith("- **"):
-            # Bold list items
-            parts = line.split(":", 1)
-            if len(parts) > 1:
-                p = doc.add_paragraph()
-                p.add_run(parts[0].strip("- ")).bold = True
-                p.add_run(": " + parts[1].strip())
+            
+        # Handle bold sections (Nigerian template headers)
+        elif line.startswith("**") and line.endswith("**"):
+            current_paragraph = doc.add_paragraph()
+            current_paragraph.add_run(line.strip("*")).bold = True
+        
+        # Handle tables
         elif "|" in line:
-            # Tables
             cells = [c.strip() for c in line.split("|") if c.strip()]
             if cells:
                 table = doc.add_table(rows=1, cols=len(cells))
-                table.style = "Table Grid"
+                table.style = "Light Shading"
                 hdr_cells = table.rows[0].cells
                 for i, cell in enumerate(cells):
                     hdr_cells[i].text = cell
+                    hdr_cells[i].paragraphs[0].runs[0].font.bold = True
+        
+        # Handle image placeholders
+        elif "<!-- IMAGE:" in line:
+            desc = line.split(":")[1].split("-->")[0].strip()
+            paragraph = doc.add_paragraph()
+            
+            # Create SVG placeholder instead of using file
+            svg = f'''
+            <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100%" height="100%" fill="#f0f0f0"/>
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" 
+                      font-family="Arial" font-size="14" fill="#666">
+                    [IMAGE PLACEHOLDER: {desc}]
+                </text>
+            </svg>
+            '''
+            
+            # Create temporary SVG file
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".svg") as temp_svg:
+                temp_svg.write(svg.encode())
+                temp_svg_path = temp_svg.name
+            
+            try:
+                run = paragraph.add_run()
+                run.add_picture(temp_svg_path, width=Pt(300))
+                os.unlink(temp_svg_path)  # Cleanup temporary SVG
+            except Exception as e:
+                paragraph.add_run(f"[IMAGE PLACEHOLDER: {desc}]").italic = True
+            
+            paragraph.add_run(f"\nFigure: {desc}").italic = True
+            
+        # Handle regular content
         else:
-            doc.add_paragraph(line)
-    
+            if line:
+                if current_paragraph:
+                    current_paragraph.add_run("\n" + line)
+                else:
+                    current_paragraph = doc.add_paragraph(line)
+            else:
+                current_paragraph = None
+
     doc.save(output_path)

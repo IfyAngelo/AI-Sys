@@ -51,31 +51,16 @@ def validate_user_input(query: Dict[str, str]) -> bool:
     print("Available topics:", [t.lower() for t in grade_level["topics"]])
     return query["topic"] in [t.strip().lower() for t in grade_level["topics"]]
 
-# def validate_user_input(query: Dict[str, str], predefined_inputs: Dict) -> bool:
-#     """
-#     Validates user input query against predefined subjects, grade levels, and topics.
-#     Args:
-#         query (dict): User input with keys 'subject', 'grade_level', 'topic'.
-#         predefined_inputs (dict): Predefined valid inputs for validation.
-#     Returns:
-#         bool: True if the query is valid, False otherwise.
-#     """
-#     # Normalize input for case-insensitivity and spacing
-#     query = {key: value.strip().lower() for key, value in query.items()}
-
-#     # Validate subject
-#     subject = next((s for s in predefined_inputs["subjects"] if s["name"].strip().lower() == query["subject"]), None)
-#     if not subject:
-#         return False
-
-#     # Validate grade level
-#     grade_level = next((g for g in subject["grade_levels"] if g["name"].strip().lower() == query["grade_level"]), None)
-#     if not grade_level:
-#         return False
-
-#     # Validate topic
-#     return query["topic"] in [t.strip().lower() for t in grade_level["topics"]]
-
+def extract_weeks_from_scheme(scheme_content: str) -> list:
+    """Extract weeks from markdown scheme content"""
+    weeks = []
+    lines = scheme_content.split('\n')
+    for line in lines:
+        if '|' in line and 'WEEK' in line.upper():
+            parts = [p.strip() for p in line.split('|') if p.strip()]
+            if len(parts) >= 2 and parts[0].isdigit():
+                weeks.append(parts[0])
+    return list(set(weeks))  # Return unique weeks
 
 def load_prompt(prompt_name: str) -> str:
     """Load prompt template from YAML files"""

@@ -9,6 +9,7 @@ __pycache__/
 .env/
 .venv/
 env/
+temp_docs/
 venv/
 ENV/
 env.bak/

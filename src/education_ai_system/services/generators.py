@@ -6,8 +6,8 @@ import yaml
 class ContentGenerator:
     def __init__(self):
         # self.llm = ChatOpenAI(model_name="gpt-4o", temperature=0.7)
-        self.llm = ChatGroq(temperature=0.7,
-                            model_name="mixtral-8x7b-32768",
+        self.llm = ChatGroq(temperature=0.5,
+                            model_name="llama-3.3-70b-versatile",
                             max_tokens=4096
                             )
         self.prompts = {
@@ -34,6 +34,14 @@ class ContentGenerator:
                 topic=context['topic'],
                 scheme_context=context.get('scheme_context', ''),
                 lesson_plan_context=context.get('lesson_plan_context', '')
+            )
+        elif content_type == "lesson_plan":
+            return template.format(
+                subject=context['subject'],
+                grade_level=context['grade_level'],
+                topic=context['topic'],
+                curriculum_context=context.get('curriculum_context', ''),
+                teaching_constraints=context.get('teaching_constraints', 'No constraints provided')
             )
         # Other content types remain the same
         return template.format(
