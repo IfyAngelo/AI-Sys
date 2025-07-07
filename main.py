@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 from src.education_ai_system.api import (
     embeddings_routes,
     docx_conversion_routes,
-    content_routes
+    content_routes,
+    evaluation_routes
 )
 from src.education_ai_system.utils.session_manager import SessionManager
 
@@ -38,6 +39,13 @@ app.include_router(
     tags=["Document Conversion"]
 )
 
+# Add after other app.include_router calls
+app.include_router(
+    evaluation_routes.router,
+    prefix="/api/evaluate",
+    tags=["Content Evaluation"]
+)
+
 @app.get("/")
 async def health_check():
     return {
@@ -48,7 +56,10 @@ async def health_check():
             "generate_lesson_plan": "/api/content/generate/lesson_plan",
             "generate_scheme": "/api/content/generate/scheme_of_work",
             "generate_notes": "/api/content/generate/lesson_notes",
-            "convert_docx": "/api/convert/convert_md_to_docx"
+            "convert_docx": "/api/convert/convert_md_to_docx",
+            "evaluate_lesson_plan": "/api/evaluate/lesson_plan",
+            "evaluate_scheme": "/api/evaluate/scheme",
+            "evaluate_lesson_note": "/api/evaluate/lesson_note",
         }
     }
 

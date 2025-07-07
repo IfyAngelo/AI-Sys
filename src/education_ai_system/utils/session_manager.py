@@ -1,5 +1,4 @@
 # src/education_ai_system/utils/session_manager.py
-from datetime import datetime
 from .supabase_manager import SupabaseManager
 
 class SessionManager:
@@ -18,8 +17,12 @@ class SessionManager:
     def get_scheme(self, scheme_id: str) -> dict:
         return self.supabase.get_scheme(scheme_id)
 
-    # Lesson Plan Operations
+    # Lesson Plan Operations - UPDATED WITH WEEK FIELD
     def create_lesson_plan(self, scheme_id: str, data: dict) -> str:
+        # Ensure week is present in data
+        if "week" not in data:
+            data["week"] = "1"
+        
         lesson_plan_id = self.supabase.create_lesson_plan(scheme_id, data)
         self.current_lesson_plan_id = lesson_plan_id
         return lesson_plan_id
@@ -27,8 +30,12 @@ class SessionManager:
     def get_lesson_plan(self, lesson_plan_id: str) -> dict:
         return self.supabase.get_lesson_plan(lesson_plan_id)
 
-    # Lesson Notes Operations
+    # Lesson Notes Operations - UPDATED WITH WEEK FIELD
     def create_lesson_notes(self, scheme_id: str, lesson_plan_id: str, data: dict) -> str:
+        # Ensure week is present in data
+        if "week" not in data:
+            data["week"] = "1"
+        
         notes_id = self.supabase.create_lesson_notes(scheme_id, lesson_plan_id, data)
         self.current_lesson_notes_id = notes_id
         return notes_id

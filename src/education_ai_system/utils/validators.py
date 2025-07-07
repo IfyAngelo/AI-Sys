@@ -52,15 +52,79 @@ def validate_user_input(query: Dict[str, str]) -> bool:
     return query["topic"] in [t.strip().lower() for t in grade_level["topics"]]
 
 def extract_weeks_from_scheme(scheme_content: str) -> list:
-    """Extract weeks from markdown scheme content"""
+    """Robust week extraction from scheme content"""
     weeks = []
-    lines = scheme_content.split('\n')
-    for line in lines:
-        if '|' in line and 'WEEK' in line.upper():
+    
+    # Method 1: Table-based extraction
+    for line in scheme_content.split('\n'):
+        if '|' in line:
             parts = [p.strip() for p in line.split('|') if p.strip()]
-            if len(parts) >= 2 and parts[0].isdigit():
+            if parts and parts[0].isdigit():
                 weeks.append(parts[0])
-    return list(set(weeks))  # Return unique weeks
+    
+    # Method 2: Pattern-based extraction
+    if not weeks:
+        import re
+        week_pattern = r'\bweek\s*(\d+)\b|\b(\d+)\b'
+        matches = re.findall(week_pattern, scheme_content, re.IGNORECASE)
+        for match in matches:
+            week_num = match[0] or match[1]  # Handle different capture groups
+            if week_num not in weeks:
+                weeks.append(week_num)
+    
+    # Ensure we have at least week 1
+    if not weeks:
+        weeks = ["1"]
+    
+    return sorted(weeks, key=int)
+
+def extract_week_topic(scheme_content: str, week: str) -> str:
+    """Extract topic for a specific week from scheme content with better parsing"""
+    # Normalize week format by removing any non-digit characters
+    clean_week = ''.join(filter(str.isdigit, week))
+    
+    # First try: table format parsing
+    for line in scheme_content.split('\n'):
+        if f"| {clean_week} |" in line or f"|{clean_week}|" in line:
+            parts = [p.strip() for p in line.split('|') if p.strip()]
+            if len(parts) >= 3:
+                return parts[1]  # Main Topic column
+    
+    # Second try: flexible pattern matching
+    for line in scheme_content.split('\n'):
+        if clean_week in line:
+            # Look for topic after the week number
+            parts = line.split(clean_week, 1)
+            if len(parts) > 1:
+                # Extract text after week number
+                topic_part = parts[1].strip()
+                # Remove any trailing table characters
+                if '|' in topic_part:
+                    topic_part = topic_part.split('|')[0]
+                if topic_part:
+                    return topic_part
+    
+    # Fallback: return the main topic if week-specific not found
+    if "TOPIC:" in scheme_content:
+        topic_line = [line for line in scheme_content.split('\n') if "TOPIC:" in line]
+        if topic_line:
+            return topic_line[0].split("TOPIC:")[1].strip()
+    
+    # Final fallback
+    return "General Topic"
+
+def extract_week_content(content: str, week: str) -> str:
+    """Extract content for a specific week from markdown content"""
+    week_header = f"WEEK {week}"
+    start_index = content.find(week_header)
+    if start_index == -1:
+        return "" 
+    
+    end_index = content.find("WEEK ", start_index + len(week_header))
+    if end_index == -1:
+        return content[start_index:]  # Return remaining content if last week
+    
+    return content[start_index:end_index]
 
 def load_prompt(prompt_name: str) -> str:
     """Load prompt template from YAML files"""

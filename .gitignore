@@ -63,6 +63,8 @@ dist/
 genai_output/
 logs/
 data/
+*.txt
+
 
 # Python wheels
 *.whl
@@ -79,3 +81,4 @@ cython_debug/
 logs/
 data/
 .env
+.temp_docs/

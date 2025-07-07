@@ -17,6 +17,22 @@ subjects:
           - Civic Education
           - National Consciousness
 
+      - name: Primary Four
+        topics:
+          - Governance
+          - National Consciousness
+
+      - name: Primary Five
+        topics:
+          - Governance
+          - National Consciousness
+          - Democracy
+
+      - name: Primary Six
+        topics:
+          - Civic Education
+          - Values
+
 
   - name: Social Studies
     grade_levels:
@@ -40,6 +56,26 @@ subjects:
           - Culture and Social Values
           - Social and Health Issues
 
+      - name: Primary Four
+        topics:
+          - Fundamental of Social Studies
+          - Familr as the Basic Unit of Society
+          - Cultural and Social Values
+          - Social and Health Issues
+
+      - name: Primary Five
+        topics:
+          - Fundamental of Social Studies
+          - Family as the Basic Unit of Society
+          - Culture and Social Values
+
+      - name: Primary Six
+        topics:
+          - Fundamental of Social Studies
+          - Family as the Basic Unit of Society
+          - Culture and Social Values
+          - Social and Health Issues
+
 
   - name: Security Education
     grade_levels:
@@ -54,3 +90,380 @@ subjects:
       - name: Primary Three
         topics:
           - Elements of Security
+
+      - name: Primary Four
+        topics:
+          - Personal or Neighbourhood Security - Duties and Responsibilities
+
+      - name: Primary Five
+        topics:
+          - Personal or Neighbourhood Security - Duties and Responsibilities
+
+      - name: Primary Six
+        topics:
+          - Personal or Neighbourhood Security - Duties and Responsibilities
+
+  
+  - name: Basic Science
+    grade_levels:
+      - name: Primary One
+        topics:
+          - Learning About Our Environment
+
+      - name: Primary Two
+        topics:
+          - Learning About Our Environment
+          - Living and Non Living Things
+
+      - name: Primary Three
+        topics:
+          - Learning About Our Environment
+          - Living and Non Living Things
+
+      - name: Primary Four
+        topics:
+          - Learning About Our Environment
+          - Living and Non Living Things
+
+      - name: Primary Five
+        topics:
+          - Learning About Our Environment
+          - Living and Non Living Things
+
+      - name: Primary Six
+        topics:
+          - Learning About Our Environment
+          - Living and Non Living Things
+
+
+  - name: Agriculture
+    grade_levels:
+      - name: Primary Four
+        topics:
+          - Introduction and Medium of Agricultural Production
+
+      - name: Primary Five
+        topics:
+          - Processes of Agricultural Production
+
+      - name: Primary Six
+        topics:
+          - Produce Packaging, Marketing and Farm Records
+
+
+  - name: Basic Technology
+    grade_levels:
+      - name: Primary One
+        topics:
+          - Understanding Basic Technology
+
+      - name: Primary Two
+        topics:
+          - Understanding Basic Technology
+          - You and Energy
+
+      - name: Primary Three
+        topics:
+          - Understanding Basic Technology
+          - You and Energy
+
+      - name: Primary Four
+        topics:
+          - Understanding Basic Technology
+          - You and Energy
+
+      - name: Primary Five
+        topics:
+          - Understanding Basic Technology
+          - You and Energy
+
+      - name: Primary Six
+        topics:
+          - Understanding Basic Technology
+          - You and Energy
+
+
+  - name: Cultural and Creative Arts
+    grade_levels:
+      - name: Primary One
+        topics:
+          - Arts and Craft
+          - Performing Arts and Entertainment
+          - Customs and Traditions
+
+      - name: Primary Two
+        topics:
+          - Performing Arts and Entertainment
+          - Customs and Traditions
+          - Arts and Craft
+
+      - name: Primary Three
+        topics:
+          - Performing Arts and Entertainment
+          - Customs and Traditions
+
+      - name: Primary Four
+        topics:
+          - Arts and Crafts
+          - Performing Arts and Entertainment
+          - Customs and Traditions
+
+      - name: Primary Five
+        topics:
+          - Arts and Crafts
+          - Performing Arts and Entertainment
+          - Customs and Traditions
+
+      - name: Primary Six
+        topics:
+          - Arts and Crafts
+          - Performing Arts and Entertainment
+          - Customs and Traditions
+
+
+  - name: English Languauge
+    grade_levels:
+      - name: Primary One
+        topics:
+          - Reading
+          - Listening and Speaking
+          - Grammatical Accuracy
+
+      - name: Primary Two
+        topics:
+          - Reading
+          - Listening and Speaking
+          - Grammatical Accuracy
+
+      - name: Primary Three
+        topics:
+          - Reading
+          - Writing
+          - Listening and Speaking
+          - Grammatical Accuracy
+
+      - name: Primary Four
+        topics:
+          - Reading
+          - Writing
+          - Listening and Speaking
+          - Grammatical Accuracy
+
+      - name: Primary Five
+        topics:
+          - Reading
+          - Writing
+          - Listening and Speaking
+
+
+  - name: Igbo Languauge
+    grade_levels:
+      - name: Primary One
+        topics:
+          - Asusu
+          - Agumagu
+          - Omenala
+
+      - name: Primary Two
+        topics:
+          - Asusu
+          - Agumagu
+          - Omenala
+
+      - name: Primary Three
+        topics:
+          - Asusu
+          - Agumagu
+          - Omenala
+
+      - name: Primary Four
+        topics:
+          - Asusu
+          - Agumagu
+          - Omenala
+
+      - name: Primary Five
+        topics:
+          - Asusu
+          - Agumagu
+          - Omenala
+
+      - name: Primary Six
+        topics:
+          - Asusu
+          - Agumagu
+          - Omenala
+
+
+  - name: Information Technology (IT)
+    grade_levels:
+      - name: Primary One
+        topics:
+          - Basic Computer Operations
+          - Basic Concepts of IT
+
+      - name: Primary Two
+        topics:
+          - Basic Computer Operations
+          - Basic Concepts of IT
+
+      - name: Primary Three
+        topics:
+          - Basic Computer Operations
+          - Basic Concepts of IT
+
+      - name: Primary Four
+        topics:
+          - Basic Computer Operations
+          - Basic Concepts of Information Technology
+
+      - name: Primary Five
+        topics:
+          - Basic Computer Operations
+          - Basic Concepts of Information
+
+      - name: Primary Six
+        topics:
+          - Basic Computer Operations
+          - Basic Concepts of Information Technology
+
+
+  - name: Mathematics
+    grade_levels:
+      - name: Primary One
+        topics:
+          - Number and Numeration
+          - Basic Operations
+          - Algebraic Processes
+          - Mensuration and Geometry
+          - Every Day Statistics
+
+      - name: Primary Two
+        topics:
+          - Number and Numeration
+          - Basic Operations
+          - Algebraic Processes
+          - Mensuration and Geometry
+          - Every Day Statistics
+
+      - name: Primary Three
+        topics:
+          - Number and Numeration
+          - Basic Operations
+          - Algebraic Processes
+          - Mensuration and Geometry
+          - Every Day Statistics
+
+      - name: Primary Four
+        topics:
+          - Number and Numeration
+          - Basic Operations
+          - Algebraic Processes
+          - Mensuration and Geometry
+          - Every Day Statistics
+
+      - name: Primary Five
+        topics:
+          - Number and Numeration
+          - Basic Operations
+          - Algebraic Processes
+          - Mensuration and Geometry
+          - Every Day Statistics
+
+      - name: Primary Six
+        topics:
+          - Number and Numeration
+          - Basic Operations
+          - Algebraic Processes
+          - Mensuration and Geometry
+          - Every Day Statistics
+
+
+  - name: Physical and Health Education
+    grade_levels:
+      - name: Primary One
+        topics:
+          - Basic Movements
+          - Sports and Games
+          - Health Education
+
+      - name: Primary Two
+        topics:
+          - Basic Movements
+          - Sports and Games
+          - Health Education
+
+      - name: Primary Three
+        topics:
+          - Basic Movements
+          - Sports and Games
+          - Health Education
+
+      - name: Primary Four
+        topics:
+          - Basic Movements
+          - Sports and Games
+          - Health Education
+
+      - name: Primary Five
+        topics:
+          - Basic Movements
+          - Athletics
+          - Games and Sports
+          - Health Education
+          - Pathogens, Diseases and Prevention
+
+      - name: Primary Six
+        topics:
+          - Basic Movements
+          - Sports and Games
+          - Health Education 
+
+
+  - name: Christian Religious Studies
+    grade_levels:
+      - name: Primary Four
+        topics:
+          - God Has a Plan for Us
+          - Jesus the Way to the Father
+          - Knowing God Through Our Relationship With Others
+
+      - name: Primary Five
+        topics:
+          - Holy Spirit Working In Us
+          - God Saves His People
+
+
+      - name: Primary Six
+        topics:
+          - Paul the Apostle
+          - Getting Ready for Responsibilities
+          - Living As a Christian
+
+
+  - name: French Language
+    grade_levels:
+      - name: Primary Four
+        topics:
+          - Identite/Identification
+          - Environment Immediat
+
+
+  - name: Home Economics
+    grade_levels:
+      - name: Primary Four
+        topics:
+          - Introduction To Home Economics
+          - Home Management
+          - Food and Nutrition
+
+      - name: Primary Five
+        topics:
+          - Family Living and Resource Management
+          - Clothing and Textile
+
+      - name: Primary Six
+        topics:
+          - Clothing and Textile
+          - Food and Nutrition
+          - Family Living and Resource Management
